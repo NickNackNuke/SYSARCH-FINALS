@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #3cc8a3; /* Green background */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  .navbar {
+    background: #ffffff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    position: fixed;
+    width: 100%; /* Ensure full width */
+    top: 0;
+    left: 0; /* Ensures the navbar starts from the left edge */
+    z-index: 10;
+  }
+  
+  .container {
+    max-width: 1200px; /* Keeps the content centered */
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px; /* Adds spacing inside the content */
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #3cc8a3;
+    text-decoration: none;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #3cc8a3;
+  }
+  
+  /* Hero Section */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh; /* Fullscreen height */
+    padding: 0 50px; /* Reduce padding on the left and right */
+    background: #ffffff;
+    border-radius: 15px;
+    margin: 20px; /* Adds space around the section */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .hero-content {
+    flex: 1; /* Ensure content takes up available space */
+  }
+  
+  .hero-content h1 {
+    font-size: 3rem;
+    color: #333;
+  }
+  
+  .hero-content p {
+    margin: 20px 0;
+    color: #666;
+    line-height: 1.8;
+  }
+  
+  .btn-primary {
+    text-decoration: none;
+    background: #3cc8a3;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background: #34b294;
+  }
+  
+  .hero-image {
+    flex: 1; /* Ensure image takes up available space */
+    text-align: center; /* Center the image */
+  }
+  
+  .hero-image img {
+    max-width: 200%;
+    height: auto;
+    border-radius: 10px;
+  }

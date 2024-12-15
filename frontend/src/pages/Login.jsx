@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import '../design/Register.css'; // Reusing the Register.css for consistent design
+import '../design/Register.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,22 +12,33 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(''); // Clear previous errors
-  
+
+    // Admin Credentials Check
+    if (email === 'admin' && password === 'admin') {
+      localStorage.setItem('role', 'admin'); // Store admin role
+      navigate('/admin/products'); // Redirect to admin products page
+      return;
+    }
+
     try {
+      // Normal User Login
       const response = await axios.post('http://localhost:3000/api/users/login', {
         email,
         password,
       });
-  
-      // Successful login
+
+      // Successful login: store user ID and role in localStorage
+      const { user } = response.data;
+      localStorage.setItem('userId', user._id);
+      localStorage.setItem('role', 'user'); // Store user role
+
       alert(response.data.message);
-      navigate('/home');
+      navigate('/home'); // Redirect to home page for users
     } catch (err) {
       console.error('Login error:', err);
       setError(err.response?.data?.error || 'Error logging in. Please try again.');
     }
   };
-  
 
   return (
     <div className="card p-4">
@@ -36,9 +47,9 @@ const Login = () => {
       <form onSubmit={handleLogin}>
         <div className="mb-3">
           <input
-            type="email"
+            type="text"
             className="form-control"
-            placeholder="Email"
+            placeholder="Email or Username"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

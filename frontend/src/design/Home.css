@@ -1,102 +1,212 @@
+/* General Styles */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #3cc8a3; /* Green background */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-  }
-  .navbar {
-    background: #ffffff; /* White background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px 0;
-    position: fixed;
-    width: 100%; /* Ensure full width */
-    top: 0;
-    left: 0; /* Ensures the navbar starts from the left edge */
-    z-index: 10;
-  }
-  
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #3cc8a3; /* Consistent green background */
+  color: #333;
+}
+
+.main {
+  margin-top: 80px; /* Prevent navbar overlap */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Navbar */
+.navbar {
+  background: #ffffff;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo {
+  color: #3cc8a3;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #2ea88b;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.hero img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Daily Check-In */
+.daily-checkin {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.daily-checkin h3 {
+  text-align: center;
+  color: #3cc8a3;
+  font-size: 1.5rem;
+}
+
+.daily-checkin form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.daily-checkin select,
+.daily-checkin input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background: #ffffff;
+  color: #333;
+}
+
+.daily-checkin button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3cc8a3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.daily-checkin button:hover {
+  background-color: #2ea88b;
+}
+
+/* Sections */
+.section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.section h3 {
+  color: #3cc8a3;
+  font-size: 1.4rem;
+}
+
+.section p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Dropdown Styling */
+.daily-checkin select {
+  appearance: none; /* Removes native dropdown styling */
+  background: url('data:image/svg+xml;utf8,<svg fill="%23333" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>')
+    no-repeat right 10px center;
+  background-size: 15px;
+}
+
+.daily-checkin select:focus {
+  outline: none;
+  border-color: #3cc8a3;
+  box-shadow: 0 0 5px rgba(60, 200, 163, 0.5);
+}
+
+/* Support Links */
+.support-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.support-links li {
+  margin: 5px 0;
+}
+
+.support-links a {
+  color: #3cc8a3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.support-links a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .container {
-    max-width: 1200px; /* Keeps the content centered */
-    margin: auto;
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 20px; /* Adds spacing inside the content */
   }
-  
-  .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #3cc8a3;
-    text-decoration: none;
-  }
-  
+
   .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
+    gap: 10px;
   }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    transition: color 0.3s ease;
+
+  .hero h1 {
+    font-size: 1.8rem;
   }
-  
-  .nav-links a:hover {
-    color: #3cc8a3;
+
+  .daily-checkin form {
+    gap: 8px;
   }
-  
-  /* Hero Section */
+}
+
+@media (max-width: 480px) {
   .hero {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100vh; /* Fullscreen height */
-    padding: 0 50px; /* Reduce padding on the left and right */
-    background: #ffffff;
-    border-radius: 15px;
-    margin: 20px; /* Adds space around the section */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
   }
-  
-  .hero-content {
-    flex: 1; /* Ensure content takes up available space */
+
+  .daily-checkin select,
+  .daily-checkin button {
+    font-size: 0.9rem;
   }
-  
-  .hero-content h1 {
-    font-size: 3rem;
-    color: #333;
-  }
-  
-  .hero-content p {
-    margin: 20px 0;
-    color: #666;
-    line-height: 1.8;
-  }
-  
-  .btn-primary {
-    text-decoration: none;
-    background: #3cc8a3;
-    color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-weight: bold;
-    transition: background 0.3s ease;
-  }
-  
-  .btn-primary:hover {
-    background: #34b294;
-  }
-  
-  .hero-image {
-    flex: 1; /* Ensure image takes up available space */
-    text-align: center; /* Center the image */
-  }
-  
-  .hero-image img {
-    max-width: 200%;
-    height: auto;
-    border-radius: 10px;
-  }
+}

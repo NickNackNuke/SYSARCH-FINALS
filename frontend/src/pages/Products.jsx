@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../design/Products.css';
 
-const Products = () => {
+const AdminProducts = () => {
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState({
     product_code: '',
@@ -16,6 +16,7 @@ const Products = () => {
   const [editValues, setEditValues] = useState({});
   const [message, setMessage] = useState('');
 
+  // Fetch products
   useEffect(() => {
     axios
       .get('http://localhost:3000/api/products')
@@ -23,6 +24,7 @@ const Products = () => {
       .catch((error) => console.error('Error fetching products:', error));
   }, []);
 
+  // Add new product
   const handleAddProduct = () => {
     if (
       !newProduct.product_code ||
@@ -53,6 +55,7 @@ const Products = () => {
       .catch((error) => console.error('Error adding product:', error));
   };
 
+  // Delete product
   const handleDeleteProduct = (id) => {
     axios
       .delete(`http://localhost:3000/api/products/${id}`)
@@ -64,6 +67,7 @@ const Products = () => {
       .catch((error) => console.error('Error deleting product:', error));
   };
 
+  // Edit product
   const handleEditProduct = () => {
     axios
       .put(`http://localhost:3000/api/products/${editProduct._id}`, editValues)
@@ -84,133 +88,26 @@ const Products = () => {
 
   return (
     <div>
-      {/* Navigation Bar */}
+      {/* Admin Navbar */}
       <nav className="navbar">
         <div className="container">
-          <Link to="/" className="logo">
-            SQUIT
-          </Link>
+          <Link to="/" className="logo">BreathEasy</Link>
           <ul className="nav-links">
-            <li>
-              <Link to="/home">Home</Link>
-            </li>
-            <li>
-              <Link to="/products">Products</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link to="/logout">Logout</Link>
-            </li>
+            <li><Link to="/admin/products">Products</Link></li>
+            <li><Link to="/admin/profile">Profile</Link></li>
+            <li><Link to="/">Logout</Link></li>
           </ul>
         </div>
       </nav>
 
-      {/* Products Section */}
+      {/* Admin Product Management Section */}
       <section className="products-hero">
-        <div className="products-header">
-          <h1>Our Products</h1>
-          <p>Discover a variety of products to support your journey.</p>
-        </div>
+        <h1>Admin Product Management</h1>
+        {message && <p className="success-message">{message}</p>}
 
-        {message && <div className="success-message">{message}</div>}
-
-        <div className="products-list">
-          {products.map((product) => (
-            <div className="product-card" key={product._id}>
-              <div className="product-details">
-                <h2>{product.name}</h2>
-                <p>{product.description}</p>
-                <p>
-                  <strong>Price:</strong> ${product.price}
-                </p>
-                <p>
-                  <strong>Quantity:</strong> {product.qty}
-                </p>
-              </div>
-              <div className="button-group">
-                <button
-                  className="edit-button"
-                  onClick={() => {
-                    setEditProduct(product);
-                    setEditValues({
-                      product_code: product.product_code,
-                      name: product.name,
-                      description: product.description,
-                      price: product.price,
-                      qty: product.qty
-                    });
-                  }}
-                >
-                  Edit
-                </button>
-                <button
-                  className="delete-button"
-                  onClick={() => handleDeleteProduct(product._id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Edit Product Section */}
-        {editProduct && (
-          <div className="edit-product-section">
-            <h2>Edit Product</h2>
-            <div className="edit-product-form">
-              <input
-                type="text"
-                placeholder="Product Code"
-                value={editValues.product_code}
-                onChange={(e) =>
-                  setEditValues({ ...editValues, product_code: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                placeholder="Name"
-                value={editValues.name}
-                onChange={(e) =>
-                  setEditValues({ ...editValues, name: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                placeholder="Description"
-                value={editValues.description}
-                onChange={(e) =>
-                  setEditValues({ ...editValues, description: e.target.value })
-                }
-              />
-              <input
-                type="number"
-                placeholder="Price"
-                value={editValues.price}
-                onChange={(e) =>
-                  setEditValues({ ...editValues, price: e.target.value })
-                }
-              />
-              <input
-                type="number"
-                placeholder="Quantity"
-                value={editValues.qty}
-                onChange={(e) =>
-                  setEditValues({ ...editValues, qty: e.target.value })
-                }
-              />
-            </div>
-            <div className="form-buttons">
-              <button onClick={handleEditProduct}>Save Changes</button>
-              <button onClick={() => setEditProduct(null)}>Cancel</button>
-            </div>
-          </div>
-        )}
-
+        {/* Add Product Form */}
         <div className="add-product-section">
-          <h2>Add a New Product</h2>
+          <h2>Add New Product</h2>
           <div className="add-product-form">
             <input
               type="text"
@@ -252,12 +149,110 @@ const Products = () => {
                 setNewProduct({ ...newProduct, qty: e.target.value })
               }
             />
-            <button onClick={handleAddProduct}>Add Product</button>
+            <button className="add-button" onClick={handleAddProduct}>
+              Add Product
+            </button>
           </div>
         </div>
+
+        {/* Product List */}
+        <div className="products-list">
+          {products.map((product) => (
+            <div className="product-card" key={product._id}>
+              <h2>{product.name}</h2>
+              <p><strong>Description:</strong> {product.description}</p>
+              <p><strong>Price:</strong> ${product.price}</p>
+              <p><strong>Quantity:</strong> {product.qty}</p>
+              <div className="button-group" style={{ gap: '10px' }}>
+                <button
+                  className="edit-button"
+                  onClick={() => {
+                    setEditProduct(product);
+                    setEditValues({
+                      product_code: product.product_code,
+                      name: product.name,
+                      description: product.description,
+                      price: product.price,
+                      qty: product.qty
+                    });
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDeleteProduct(product._id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
+
+      {/* Edit Product Modal */}
+     {/* Edit Modal */}
+{editProduct && (
+  <div className="modal-overlay">
+    <div className="edit-modal">
+      <h2>Edit Product</h2>
+      <input
+        type="text"
+        placeholder="Product Code"
+        value={editValues.product_code}
+        onChange={(e) =>
+          setEditValues({ ...editValues, product_code: e.target.value })
+        }
+      />
+      <input
+        type="text"
+        placeholder="Name"
+        value={editValues.name}
+        onChange={(e) =>
+          setEditValues({ ...editValues, name: e.target.value })
+        }
+      />
+      <input
+        type="text"
+        placeholder="Description"
+        value={editValues.description}
+        onChange={(e) =>
+          setEditValues({ ...editValues, description: e.target.value })
+        }
+      />
+      <input
+        type="number"
+        placeholder="Price"
+        value={editValues.price}
+        onChange={(e) =>
+          setEditValues({ ...editValues, price: e.target.value })
+        }
+      />
+      <input
+        type="number"
+        placeholder="Quantity"
+        value={editValues.qty}
+        onChange={(e) =>
+          setEditValues({ ...editValues, qty: e.target.value })
+        }
+      />
+      <div className="modal-buttons">
+        <button className="save-button" onClick={handleEditProduct}>
+          Save Changes
+        </button>
+        <button
+          className="cancel-button"
+          onClick={() => setEditProduct(null)}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };
 
-export default Products;
+export default AdminProducts;
